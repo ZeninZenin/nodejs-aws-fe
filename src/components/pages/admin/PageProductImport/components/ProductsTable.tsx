@@ -16,7 +16,7 @@ export default function ProductsTable() {
   const [products, setProducts] = useState<any>([]);
 
   useEffect(() => {
-    axios.get(`${API_PATHS.bff}/product`)
+    axios.get(API_PATHS.product)
       .then(res => setProducts(res.data));
   }, []);
 
@@ -35,8 +35,8 @@ export default function ProductsTable() {
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Title</TableCell>
-            <TableCell align="right">Description</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell align="right">Image URL</TableCell>
             <TableCell align="right">Price</TableCell>
             <TableCell align="right">Count</TableCell>
             <TableCell align="right">Action</TableCell>
@@ -48,14 +48,14 @@ export default function ProductsTable() {
               <TableCell component="th" scope="row">
                 {product.name}
               </TableCell>
-              <TableCell align="right">{product.description}</TableCell>
+              <TableCell align="right" style={{maxWidth: '300px', wordBreak: 'break-word'}}><a href={product.imgUrl} rel="noopener noreferrer" target="_blank">{product.imgUrl}</a></TableCell>
               <TableCell align="right">{formatAsPrice(product.price)}</TableCell>
               <TableCell align="right">{product.count}</TableCell>
               <TableCell align="right">
-                <Button size="small" color="primary" component={Link} to={`/admin/product-form/${product.id}`}>
+                <Button size="small" color="primary" disabled component={Link} to={`/admin/product-form/${product.id}`}>
                   Manage
                 </Button>
-                <Button size="small" color="secondary" onClick={() => onDelete(product.id)}>
+                <Button size="small" color="secondary" disabled onClick={() => onDelete(product.id)}>
                   Delete
                 </Button>
               </TableCell>
