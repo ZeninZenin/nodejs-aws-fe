@@ -1,25 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'index.css';
+import * as toastr from 'toastr';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import {Provider} from 'react-redux';
 import App from 'components/App/App';
 import {store} from 'store/store';
-import {Provider} from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import CssBaseline from "@material-ui/core/CssBaseline";
-import axios from 'axios';
 
-axios.interceptors.response.use(
-  response => {
-    return response;
-  },
-  function(error) {
-    console.log(error)
-    if (error.response?.status === 400) {
-      alert(error.response.data?.data);
-    }
-    return Promise.reject(error.response);
-  }
-);
+toastr.options.timeOut = 5000;
+toastr.options.extendedTimeOut = 1000;
+toastr.options.closeButton = true;
+toastr.options.progressBar = true;
+toastr.options.preventDuplicates = true;
 
 ReactDOM.render(
   <React.StrictMode>

@@ -45,15 +45,17 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "serverless-finch": "^2.6.0",
+    "serverless-single-page-app-plugin": "file:./serverless-single-page-app-plugin",
+    "toastr": "^2.1.4",
     "typescript": "~3.7.2",
-    "yup": "^0.29.1",
-    "serverless-single-page-app-plugin": "file:./serverless-single-page-app-plugin"
+    "yup": "^0.29.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^24.0.0"
+    "@types/jest": "^24.0.0",
+    "@types/toastr": "^2.1.38"
   },
   "eslintConfig": {
     "extends": "react-app"

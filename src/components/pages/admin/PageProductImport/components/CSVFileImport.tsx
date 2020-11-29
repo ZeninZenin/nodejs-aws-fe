@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
-import axios from 'axios';
+import { axios } from 'api';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -59,7 +59,7 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
         array.push(binary.charCodeAt(i))
       }
       let blobData = new Blob([new Uint8Array(array)], {type: 'text/plain'})
-      console.log('Uploading to: ', response.data.uploadURL)
+      console.log('Uploading to: ', response.data)
       const result = await axios.put(response.data, blobData, {
         headers: {
           'Content-Type': 'text/csv',
