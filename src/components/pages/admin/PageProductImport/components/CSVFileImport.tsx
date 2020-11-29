@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import Typography from "@material-ui/core/Typography";
 import { axios } from 'api';
+import * as toastr from 'toastr';
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -66,6 +67,11 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
         },
       });
       console.log('Result: ', result)
+
+      if (result.status === 200) {
+        toastr.success('Продукты успешно добавлены', 'OK');
+      }
+
       // Final URL for the user doesn't need the query string params
       setUploadUrl(response.data.split('?')[0]);
       setFile('');
