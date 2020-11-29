@@ -18,6 +18,7 @@ type CSVFileImportProps = {
 export default function CSVFileImport({url, title}: CSVFileImportProps) {
   const classes = useStyles();
   const [file, setFile] = useState<any>();
+  const [fileName, setFileName] = useState<string>();
   const [uploadUrl, setUploadUrl] = useState<any>();
 
   const createFile = (file: any) => {
@@ -30,9 +31,16 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
   };
 
   const onFileChange = (e: any) => {
-    console.log(e);
+    console.log(e.target.files);
     let files = e.target.files || e.dataTransfer.files
     if (!files.length) return
+
+    if (!files[0].name.endsWith('.csv')) {
+      e.target.value = '';
+      return;
+    }
+
+    setFileName(files[0].name)
     createFile(files[0])
   };
 
@@ -42,10 +50,7 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
 
   const uploadFile = async (e: any) => {
       // Get the presigned URL
-      const response = await axios({
-        method: 'GET',
-        url
-      })
+      const response = await axios.get(url, {params: {name: fileName}})
       console.log('Response: ', response.data)
       console.log('Uploading: ', file)
       let binary = atob(file.split(',')[1])
@@ -55,13 +60,14 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
       }
       let blobData = new Blob([new Uint8Array(array)], {type: 'text/plain'})
       console.log('Uploading to: ', response.data.uploadURL)
-      const result = await fetch(response.data.uploadURL, {
-        method: 'PUT',
-        body: blobData
-      })
+      const result = await axios.put(response.data, blobData, {
+        headers: {
+          'Content-Type': 'text/csv',
+        },
+      });
       console.log('Result: ', result)
       // Final URL for the user doesn't need the query string params
-      setUploadUrl(response.data.uploadURL.split('?')[0]);
+      setUploadUrl(response.data.split('?')[0]);
       setFile('');
     }
   ;
@@ -72,7 +78,7 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
         {title}
       </Typography>
       {!file ? (
-          <input type="file" onChange={onFileChange}/>
+          <input type="file" onChange={onFileChange} accept=".csv"/>
       ) : (
         <div>
           {!uploadUrl && <button onClick={removeFile}>Remove file</button>}
