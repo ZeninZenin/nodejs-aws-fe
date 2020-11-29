@@ -69,7 +69,7 @@ export default function CSVFileImport({url, title}: CSVFileImportProps) {
       console.log('Result: ', result)
 
       if (result.status === 200) {
-        toastr.success('Продукты успешно добавлены', 'OK');
+        toastr.success('Products was added', 'Success');
       }
 
       // Final URL for the user doesn't need the query string params

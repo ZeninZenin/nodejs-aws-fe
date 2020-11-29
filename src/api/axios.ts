@@ -23,11 +23,11 @@ axios.interceptors.response.use(
     switch(error.response?.status) {
       case 401: 
         console.log(1)
-        toastr.error('Пользователь не авторизован', 'Ошибка авторизации!');
+        toastr.error('You are not authorized', 'Auth error!');
         break;
 
       case 403: 
-        toastr.error('Вы не имеете прав для совершения данной операции', 'Ошибка авторизации!');
+        toastr.error('Not enough rights', 'Auth error!');
         break;
 
       default:
