@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {OrderItem} from "models/Order";
-import axios from 'axios';
 import {useParams} from 'react-router-dom';
 import PaperLayout from "components/PaperLayout/PaperLayout";
 import Typography from "@material-ui/core/Typography";
@@ -20,6 +19,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
+import { axios } from 'api';
 
 const Form = (props: FormikProps<FormikValues>) => {
   const {

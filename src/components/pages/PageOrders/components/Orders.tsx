@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import axios from 'axios';
 import {Link} from "react-router-dom";
 import API_PATHS from "constants/apiPaths";
 import Table from '@material-ui/core/Table';
@@ -10,6 +9,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Button from "@material-ui/core/Button";
+import { axios } from 'api';
 
 export default function Orders() {
   const [orders, setOrders] = useState<any>([]);
