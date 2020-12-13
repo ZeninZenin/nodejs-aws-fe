@@ -1,7 +1,9 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {RootState} from 'store/store';
+import {createSlice, PayloadAction, createAsyncThunk} from '@reduxjs/toolkit';
+import {RootState, store} from 'store/store';
 import {Product} from "models/Product";
 import {CartItem} from "models/CartItem";
+import { axios } from 'api';
+import API_PATHS from 'constants/apiPaths';
 
 interface CartState {
   items: CartItem[]
@@ -10,6 +12,13 @@ interface CartState {
 const initialState: CartState = {
   items: [],
 };
+
+export const updateCart = createAsyncThunk(
+  'cart/updateCart',
+  async (items: CartItem[]) => {
+    await axios.put(`${API_PATHS.cart}/profile/cart`, { items });
+  },
+);
 
 export const cartSlice = createSlice({
   name: 'cart',
@@ -40,11 +49,14 @@ export const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state.items = [];
+    },
+    setCart: (state, action: PayloadAction<CartItem[]>) => {
+      state.items = action.payload;
     }
   },
 });
 
-export const {addToCart, removeFromCart, clearCart} = cartSlice.actions;
+export const {addToCart, removeFromCart, clearCart, setCart} = cartSlice.actions;
 
 
 // The function below is called a selector and allows us to select a value from

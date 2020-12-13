@@ -7,7 +7,7 @@ export const axios = Axios.create();
 axios.interceptors.request.use((request: AxiosRequestConfig) => {
   const token = localStorage.getItem('token');
 
-  if (token && request.url === API_PATHS.import) {
+  if (token && [API_PATHS.import, API_PATHS.cart].some(path => request.url?.match(path))) {
       request.headers['Authorization'] = `Basic ${token}`;
   }
   return request;
